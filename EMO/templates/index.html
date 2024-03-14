@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Your head content here -->
+</head>
+
+<body>
+    <div id="container">
+        <h1>EMO - Emotional Analyzer</h1>
+        <form action="/predict" method="POST">
+            <label for="text_input">Enter text:</label>
+            <textarea id="text_input" name="text_input" rows="4" cols="50" required></textarea><br>
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if prediction is defined %}
+            <h2>Analysis Result:</h2>
+            <p>Input Text: {{ user_input }}</p>
+            {% if predicted_value is defined %}
+                <p>Predicted Emotion: {{ predicted_value }}</p>
+            {% else %}
+                <p>System down</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+
+</html>

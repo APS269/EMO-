@@ -6,9 +6,9 @@ from nltk.tokenize import word_tokenize
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, classification_report
 from langdetect import detect
 import pickle
+from converter import hinglish_to_english
 
 # Download NLTK stopwords (if not already downloaded)
 # nltk.download('stopwords')
@@ -49,8 +49,8 @@ def analyze_emotion(text):
     detected_language = detect(text)
     
     if detected_language != 'en':
-        return "Unsupported Language: Currently, the emotional analyzer only supports English text."
-
+        text = hinglish_to_english(text)
+        
     # Load the trained model and vectorizer
     with open('model.pkl', 'rb') as model_file:
         loaded_svm_classifier = pickle.load(model_file)

@@ -9,12 +9,17 @@ app = Flask(__name__)
 with open("model.pkl", "rb") as model_file:
     loaded_svm_classifier = pickle.load(model_file)
 
+
 with open("vectorizer.pkl", "rb") as vectorizer_file:
     loaded_tfidf_vectorizer = pickle.load(vectorizer_file)
 
 @app.route("/")
 def home():
     return render_template("index.html", prediction=None, user_input=None)
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -29,4 +34,4 @@ def predict():
         return render_template('index.html', prediction=prediction, user_input=user_input, predicted_value=prediction)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port = 8000)
